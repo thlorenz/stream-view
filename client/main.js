@@ -4,6 +4,5 @@ var multilevel = require('multilevel')
   , createSublevels = require('../lib/create-sublevels')
 
 var db = multilevel.client(manifest)
-  , sublevels = createSublevels(db) 
 
-console.log('hello stream-view', sublevels)
+console.log('hello stream-view', db.sublevels)

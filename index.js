@@ -11,14 +11,13 @@ var go = module.exports = function () {
   var streams = [].slice.call(arguments)
   var db, sublevels;
 
-  setupDb(onDbSetup);
+  setupDb(streams, onDbSetup);
 
   function onDbSetup (err, db_, sublevels_) {
     if (err) return console.error(err);
     db = db_
     sublevels = sublevels_;
     server(db_, onServerListening);
-
   }
 
   function onServerListening (err, address) {
@@ -37,7 +36,10 @@ if (!module.parent) {
     , tarpit = require('stream-spectrum/writable/tarpit')
     , inspect = require('inspect-stream') 
 
-  go(numbers, tarpit)
+  var nums = numbers()
+    , pit = tarpit()
+
+  go(nums, pit)
 
   //numbers().pipe(inspect()).pipe(tarpit());
 }
